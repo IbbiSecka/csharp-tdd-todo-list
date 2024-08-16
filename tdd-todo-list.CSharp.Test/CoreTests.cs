@@ -1,6 +1,7 @@
 ﻿using tdd_todo_list.CSharp.Main;
 using NUnit.Framework;
 using taskList;
+using NUnit.Framework.Interfaces;
 namespace tdd_todo_list.CSharp.Test
 {
     [TestFixture]
@@ -18,6 +19,16 @@ namespace tdd_todo_list.CSharp.Test
 
             Assert.That(result, Is.True); //Checking if added
             Assert.That(todoList.AllTasks.Count, Is.EqualTo(1));
+        }
+        [Test]
+        public void GetAllTasks()
+        {
+            TodoList seeList = new TodoList();
+            TaskObj task1 = new TaskObj("clean", true);
+            seeList.Add(task1);
+
+            Assert.That(seeList.AllTasks, Is.EqualTo(1));
+
         }
 
 
@@ -64,11 +75,11 @@ namespace tdd_todo_list.CSharp.Test
         public void SearchTaskMessage()
         {
             TodoList todo = new TodoList();
-            TaskObj taskExists = new TaskObj("Hei",true);
+            TaskObj taskExists = new TaskObj("Hei", true);
             TaskObj taskExistsNa = new TaskObj("Nei", false);
 
             todo.Add(taskExists);
-            
+
             string expectedString = "Task doesnt exist in the list";
             string result = todo.SearchForTask(taskExistsNa);
 
@@ -88,10 +99,41 @@ namespace tdd_todo_list.CSharp.Test
             int expectedResult = 1;
 
             Assert.That(expectedResult == result);
+        }
+        [Test]
+        public void ascendingOrderList()
+        {
+            TodoList todo = new TodoList();
+            TaskObj task1 = new TaskObj("attend meeting", true);
+            TaskObj task2 = new TaskObj("clean", true);
 
+            todo.Add(task1);
+            todo.Add(task2);
+            List<TaskObj> tasks = todo.AllTasks;
+            List<TaskObj> sortedTodo = todo.Ascend(tasks);
 
+            Assert.AreEqual("attend meeting", sortedTodo[0].TaskName);
 
         }
+        [Test]
+        public void descendingOrderList()
+        {
+            
+            TodoList todo = new TodoList();
+            TaskObj task1 = new TaskObj("attend meeting", true);
+            TaskObj task2 = new TaskObj("clean", true);
 
+            todo.Add(task1);
+            todo.Add(task2);
+
+            List<TaskObj> tasks = todo.AllTasks;
+
+            
+            List<TaskObj> sortedTodo = todo.Descend(tasks);
+
+            
+            Assert.AreEqual("clean", sortedTodo[0].TaskName);
+
+        }
     }
 }

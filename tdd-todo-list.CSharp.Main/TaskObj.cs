@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace taskList
 {
-    public class TaskObj
+    public class TaskObj : IComparable<TaskObj>
     {
         public string TaskName { get; set; }
         public bool TaskStatus { get; set; }
@@ -15,6 +15,14 @@ namespace taskList
         {
             TaskName = taskName;
             TaskStatus = taskStatus;
+        }
+        public int CompareTo(TaskObj oneObj)
+        {
+            if (oneObj == null)
+                return 1;
+
+       
+            return string.Compare(this.TaskName, oneObj.TaskName);
         }
 
     }

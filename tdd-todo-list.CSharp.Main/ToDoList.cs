@@ -55,5 +55,18 @@ namespace tdd_todo_list.CSharp.Main
             _tasks.Remove(task);
             return _tasks.Count;
         }
+
+        public List<TaskObj> Ascend(List<TaskObj> _tasks) { 
+            List<TaskObj> list1 = new List<TaskObj>(_tasks);
+            list1.Sort();
+            return list1;
+        }
+        public List<TaskObj> Descend(List<TaskObj> _tasks)
+        {
+            List<TaskObj> list1 = new List<TaskObj>(_tasks);
+            list1.Sort((x, y) => string.Compare(y.TaskName, x.TaskName)); 
+            return list1;
+        }
+
     }
 }
